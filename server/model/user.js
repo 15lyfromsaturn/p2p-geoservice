@@ -18,6 +18,12 @@ const UserSchema = new Schema({
     token  : String,
     name   : String,
     image  : String
+  },
+  vkontakte : {
+    id    : String,
+    token : String,
+    name  : String,
+    image : String
   }
 });
 

@@ -3,9 +3,11 @@
 const passport = require('passport');
 const FacebookStrategy = require('passport-facebook').Strategy;
 const TwitterStrategy = require('passport-twitter').Strategy;
+const VKontakteStrategy = require('passport-vkontakte').Strategy;
 
 const Twitter  = require('./twitter');
 const Facebook = require('./facebook');
+const Vkontakte = require('./vkontakte');
 
 const callBackPath = process.env.DOMAIN + 'api/auth/';
 
@@ -32,6 +34,21 @@ passport.use(
     },
     function (accessToken, refreshToken, profile, done) {
       Twitter(accessToken, profile).then(function(user) {
+        done(null, user)
+      }).catch(function(e) {
+        done('Err')
+      });
+    }
+));
+
+passport.use(
+  new VKontakteStrategy({
+      clientID: process.env.VK_APPID,
+      clientSecret: process.env.VK_SECRET,
+      callbackURL: callBackPath + 'vk/callback'
+    },
+    function(accessToken, refreshToken, profile, done) {
+      Vkontakte(accessToken, profile).then(function(user) {
         done(null, user)
       }).catch(function(e) {
         done('Err')
