@@ -9,7 +9,7 @@ module.exports = Q.async(function *(token, profile) {
   if (!user) {
     user = yield User.create({
       email: null,
-      twitter : {
+      facebook : {
         id    : profile.id,
         token : token,
         name  : profile.displayName || profile.username,
