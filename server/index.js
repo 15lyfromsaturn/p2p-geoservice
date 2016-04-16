@@ -21,6 +21,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static('public'));
 app.use(function(req, res, next) {
+  res.setHeader('Content-type', 'application/json');
 	res.setHeader('Access-Control-Allow-Origin', '*');
 	res.setHeader('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,HEAD,OPTIONS');
 	res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With, X-HTTP-Method-Override');

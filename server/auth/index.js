@@ -15,10 +15,11 @@ passport.use(
   new FacebookStrategy({
       clientID: process.env.FACEBOOK_APPID,
       clientSecret: process.env.FACEBOOK_SECRET,
-      callbackURL: callBackPath + 'facebook/callback'
+      callbackURL: callBackPath + 'facebook/callback',
+      passReqToCallback : true
     },
-    function(accessToken, refreshToken, profile, done) {
-      Facebook(accessToken, profile).then(function(user) {
+    function(req, accessToken, refreshToken, profile, done) {
+      Facebook(req.user, accessToken, profile).then(function(user) {
         done(null, user)
       }).catch(function(e) {
         done('Err')
@@ -30,10 +31,11 @@ passport.use(
   new TwitterStrategy({
       consumerKey: process.env.TWITTER_KEY,
       consumerSecret: process.env.TWITTER_SECRET,
-      callbackURL: callBackPath + 'twitter/callback'
+      callbackURL: callBackPath + 'twitter/callback',
+      passReqToCallback : true
     },
-    function (accessToken, refreshToken, profile, done) {
-      Twitter(accessToken, profile).then(function(user) {
+    function (req, accessToken, refreshToken, profile, done) {
+      Twitter(req.user, accessToken, profile).then(function(user) {
         done(null, user)
       }).catch(function(e) {
         done('Err')
@@ -45,10 +47,11 @@ passport.use(
   new VKontakteStrategy({
       clientID: process.env.VK_APPID,
       clientSecret: process.env.VK_SECRET,
-      callbackURL: callBackPath + 'vk/callback'
+      callbackURL: callBackPath + 'vk/callback',
+      passReqToCallback : true
     },
-    function(accessToken, refreshToken, profile, done) {
-      Vkontakte(accessToken, profile).then(function(user) {
+    function(req, accessToken, refreshToken, profile, done) {
+      Vkontakte(req.user, accessToken, profile).then(function(user) {
         done(null, user)
       }).catch(function(e) {
         done('Err')
